@@ -1,0 +1,260 @@
+.container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4a5568;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+}
+
+.backButton:hover {
+    color: #2d3748;
+}
+
+.studentHeader {
+    background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.info h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.details {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.statCard {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.statIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.statIcon.blue {
+    background: #ebf8ff;
+    color: #3182ce;
+}
+
+.statIcon.green {
+    background: #f0fff4;
+    color: #38a169;
+}
+
+.statIcon.purple {
+    background: #faf5ff;
+    color: #805ad5;
+}
+
+.statValue {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2d3748;
+    line-height: 1;
+}
+
+.statLabel {
+    color: #718096;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.timeline {
+    position: relative;
+    padding-right: 2rem;
+    border-right: 2px solid #e2e8f0;
+}
+
+.timelineItem {
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+
+.timelineDot {
+    position: absolute;
+    right: -2rem;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    background: #3182ce;
+    border: 3px solid white;
+    border-radius: 50%;
+    transform: translateX(50%);
+    box-shadow: 0 0 0 2px #3182ce;
+}
+
+.activityCard {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.activityCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.activityHeader {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.activityTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.activityMeta {
+    display: flex;
+    gap: 1rem;
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+.statusBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.statusRegistered {
+    background: #ebf8ff;
+    color: #2b6cb0;
+}
+
+.statusAttended {
+    background: #f0fff4;
+    color: #2f855a;
+}
+
+.statusAbsent {
+    background: #fff5f5;
+    color: #c53030;
+}
+
+.evaluations {
+    padding: 1.5rem;
+    background: #fcfcfc;
+}
+
+.evaluationCard {
+    background: #fff;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+}
+
+.evalHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.scoreBadge {
+    background: #faf5ff;
+    color: #6b4c9a;
+    padding: 0.25rem 0.75rem;
+    border-radius: 8px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.evalComment {
+    color: #4a5568;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    background: #f7fafc;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 3rem;
+    color: #718096;
+    background: #f7fafc;
+    border-radius: 12px;
+    border: 2px dashed #e2e8f0;
+}

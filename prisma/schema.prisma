@@ -1,0 +1,346 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// User & Authentication
+// ============================================
+
+model User {
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  password    String
+  name        String
+  role        String    @default("teacher") // admin, manager, teacher
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  evaluations Evaluation[] @relation("EvaluatorRelation")
+  notes       Note[]       @relation("AuthorRelation")
+  notifications Notification[]
+  auditLogs   AuditLog[]
+  activityEvaluations ActivityEvaluation[]
+  teacherProfile Teacher?  // Link to teacher profile if user is a teacher
+
+  @@map("users")
+}
+
+// ============================================
+// Department & Subject
+// ============================================
+
+model Department {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  teachers    Teacher[]
+
+  @@map("departments")
+}
+
+model Subject {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  teachers    Teacher[]
+
+  @@map("subjects")
+}
+
+// ============================================
+// Teacher
+// ============================================
+
+model Teacher {
+  id           Int       @id @default(autoincrement())
+  employeeId   String    @unique
+  name         String
+  email        String?
+  phone        String?
+  departmentId Int?
+  subjectId    Int?
+  joinDate     DateTime?
+  status       String    @default("active") // active, inactive, suspended
+  userId       Int?      @unique  // Link to User for login credentials
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Relations
+  department   Department? @relation(fields: [departmentId], references: [id])
+  subject      Subject?    @relation(fields: [subjectId], references: [id])
+  user         User?       @relation(fields: [userId], references: [id])
+  attendances  Attendance[]
+  evaluations  Evaluation[]
+  notes        Note[]
+  activities   Activity[]
+  activityParticipations ActivityParticipation[]
+
+  @@map("teachers")
+}
+
+// ============================================
+// Attendance
+// ============================================
+
+model Attendance {
+  id        Int       @id @default(autoincrement())
+  teacherId Int
+  date      DateTime
+  checkIn   DateTime?
+  checkOut  DateTime?
+  status    String    @default("present") // present, absent, late, excused
+  notes     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Relations
+  teacher   Teacher   @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherId, date])
+  @@map("attendances")
+}
+
+// ============================================
+// Evaluation
+// ============================================
+
+model Evaluation {
+  id                      Int       @id @default(autoincrement())
+  teacherId               Int
+  evaluatorId             Int
+  date                    DateTime
+  teachingQuality         Int       @default(0) // 1-10 (legacy)
+  punctuality             Int       @default(0) // 1-10 (legacy)
+  studentInteraction      Int       @default(0) // 1-10 (legacy)
+  curriculumAdherence     Int       @default(0) // 1-10 (legacy)
+  lessonPlanning          Int       @default(7) // 1-10 التخطيط والإعداد للدرس
+  lessonPlanningNote      String?   // ملاحظة التخطيط
+  lessonExecution         Int       @default(7) // 1-10 تنفيذ الدرس والتدريس
+  lessonExecutionNote     String?   // ملاحظة التنفيذ
+  classroomManagement     Int       @default(7) // 1-10 إدارة الصف والبيئة التعليمية
+  classroomManagementNote String?   // ملاحظة الإدارة
+  professionalGrowth      Int       @default(7) // 1-10 النمو المهني والمهنية
+  professionalGrowthNote  String?   // ملاحظة النمو المهني
+  overallScore            Float
+  comments                String?
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+
+  // Relations
+  teacher             Teacher   @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  evaluator           User      @relation("EvaluatorRelation", fields: [evaluatorId], references: [id])
+
+  @@map("evaluations")
+}
+
+// ============================================
+// Administrative Notes
+// ============================================
+
+model Note {
+  id        Int       @id @default(autoincrement())
+  teacherId Int
+  authorId  Int
+  type      String    @default("info") // positive, needs_improvement, warning, info
+  content   String
+  createdAt DateTime  @default(now())
+
+  // Relations
+  teacher   Teacher   @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  author    User      @relation("AuthorRelation", fields: [authorId], references: [id])
+
+  @@map("notes")
+}
+
+// ============================================
+// Notifications
+// ============================================
+
+model Notification {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  title     String
+  message   String
+  type      String    @default("info") // info, warning, alert, success
+  isRead    Boolean   @default(false)
+  createdAt DateTime  @default(now())
+
+  // Relations
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+// ============================================
+// Audit Log
+// ============================================
+
+model AuditLog {
+  id        Int       @id @default(autoincrement())
+  userId    Int?
+  action    String    // login, logout, create, update, delete, export
+  entity    String    // user, teacher, attendance, evaluation, note, report
+  entityId  Int?
+  details   String?   // JSON string
+  ipAddress String?
+  createdAt DateTime  @default(now())
+
+  // Relations
+  user      User?     @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+// ============================================
+// Student (الطالب)
+// ============================================
+
+model Student {
+  id          Int       @id @default(autoincrement())
+  studentId   String    @unique  // الرقم الطلابي
+  name        String
+  email       String?
+  phone       String?
+  grade       String?   // الصف الدراسي
+  parentId    Int?
+  status      String    @default("active") // active, inactive
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  parent         Parent?   @relation(fields: [parentId], references: [id])
+  participations ActivityParticipation[]
+
+  @@map("students")
+}
+
+// ============================================
+// Parent (ولي الأمر)
+// ============================================
+
+model Parent {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  name      String
+  phone     String?
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Relations
+  students  Student[]
+
+  @@map("parents")
+}
+
+// ============================================
+// Activity Category (فئات الأنشطة)
+// ============================================
+
+model ActivityCategory {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique // يوم اللغة العربية، يوم المكتبة، يوم الشعر، يوم الحقوق الإنسانية
+  description String?
+  icon        String?   // اسم الأيقونة
+  color       String?   // لون الفئة
+  createdAt   DateTime  @default(now())
+
+  // Relations
+  activities  Activity[]
+
+  @@map("activity_categories")
+}
+
+// ============================================
+// Activity (النشاط)
+// ============================================
+
+model Activity {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  categoryId  Int
+  teacherId   Int?      // المدرس المسؤول
+  date        DateTime
+  endDate     DateTime?
+  time        String?
+  location    String?
+  status      String    @default("upcoming") // upcoming, ongoing, completed, cancelled
+  maxParticipants Int?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  category       ActivityCategory @relation(fields: [categoryId], references: [id])
+  teacher        Teacher?         @relation(fields: [teacherId], references: [id])
+  participations ActivityParticipation[]
+
+  @@map("activities")
+}
+
+// ============================================
+// Activity Participation (المشاركات)
+// ============================================
+
+model ActivityParticipation {
+  id          Int       @id @default(autoincrement())
+  activityId  Int
+  studentId   Int?
+  teacherId   Int?
+  role        String    @default("participant") // participant, organizer, presenter, judge
+  status      String    @default("registered") // registered, attended, completed, absent
+  notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  activity    Activity  @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  student     Student?  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  teacher     Teacher?  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  evaluations ActivityEvaluation[]
+
+  @@unique([activityId, studentId])
+  @@unique([activityId, teacherId])
+  @@map("activity_participations")
+}
+
+// ============================================
+// Activity Evaluation (تقييم المشاركات)
+// ============================================
+
+model ActivityEvaluation {
+  id              Int       @id @default(autoincrement())
+  participationId Int
+  evaluatorId     Int
+  score           Int       @default(0) // 1-10
+  performance     String?   // ممتاز، جيد جداً، جيد، مقبول، ضعيف
+  strengths       String?   // نقاط القوة
+  improvements    String?   // نقاط التحسين
+  comments        String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  participation   ActivityParticipation @relation(fields: [participationId], references: [id], onDelete: Cascade)
+  evaluator       User                  @relation(fields: [evaluatorId], references: [id])
+
+  @@map("activity_evaluations")
+}
+

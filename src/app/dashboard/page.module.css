@@ -1,0 +1,943 @@
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Welcome Slide - Dr. Hussein Abu Hamdan */
+.welcomeSlide {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0d1f33 50%, #1e3a5f 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #d4af37;
+    box-shadow: 0 10px 40px rgba(30, 58, 95, 0.3);
+}
+
+.welcomeSlide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.welcomeSlide::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 0L35 10L45 10L37.5 17.5L40 27.5L30 22.5L20 27.5L22.5 17.5L15 10L25 10Z' fill='%23d4af37' fill-opacity='0.03'/%3E%3C/svg%3E");
+    animation: slideStars 60s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes slideStars {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(50%, 50%);
+    }
+}
+
+.slideContent {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.slideInfo {
+    flex: 1;
+}
+
+.slideLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+    color: #1e3a5f;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.slideName {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slideTitle {
+    font-size: 1.1rem;
+    color: #d4af37;
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+}
+
+.slideDescription {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 600px;
+}
+
+.slideBadge {
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 0 8px rgba(212, 175, 55, 0.2),
+        0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.badgeIcon {
+    color: #1e3a5f;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+@media (max-width: 768px) {
+    .welcomeSlide {
+        padding: 1.5rem;
+    }
+
+    .slideContent {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .slideName {
+        font-size: 1.5rem;
+    }
+
+    .slideDescription {
+        max-width: 100%;
+    }
+
+    .slideBadge {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* Welcome Section */
+.welcome {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.welcomeTitle {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 0.25rem;
+}
+
+.welcomeSubtitle {
+    color: var(--gray-500);
+    font-size: 1rem;
+}
+
+.dateInfo {
+    text-align: left;
+}
+
+.currentDate {
+    font-size: 0.9375rem;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+/* Stats Grid */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.statCard {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: all 0.2s ease;
+}
+
+.statCard:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.statIcon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.iconBlue {
+    background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
+    color: var(--primary-600);
+}
+
+.iconGreen {
+    background: linear-gradient(135deg, var(--success-100), var(--success-50));
+    color: var(--success-600);
+}
+
+.iconYellow {
+    background: linear-gradient(135deg, var(--warning-100), var(--warning-50));
+    color: var(--warning-600);
+}
+
+.iconPurple {
+    background: linear-gradient(135deg, #ede9fe, #f5f3ff);
+    color: #7c3aed;
+}
+
+.statContent {
+    flex: 1;
+    min-width: 0;
+}
+
+.statValue {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    line-height: 1.2;
+}
+
+.statLabel {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    margin-top: 0.125rem;
+}
+
+.statChange {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.statChange.positive {
+    color: var(--success-600);
+}
+
+.statChange.negative {
+    color: var(--error-600);
+}
+
+.statChange.neutral {
+    color: var(--gray-500);
+}
+
+/* Content Grid */
+.contentGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+/* Section Styles */
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 1rem;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.sectionLink {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--primary-600);
+    transition: color 0.2s;
+}
+
+.sectionLink:hover {
+    color: var(--primary-700);
+}
+
+/* Alerts Section */
+.alertsSection {
+    grid-column: span 3;
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    border: 1px solid var(--card-border);
+}
+
+.alertsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.alertError {
+    background: var(--error-50);
+    color: var(--error-700);
+    border: 1px solid var(--error-100);
+}
+
+.alertWarning {
+    background: var(--warning-50);
+    color: var(--warning-700);
+    border: 1px solid var(--warning-100);
+}
+
+.alertInfo {
+    background: var(--primary-50);
+    color: var(--primary-700);
+    border: 1px solid var(--primary-100);
+}
+
+.alertCount {
+    font-weight: 700;
+}
+
+/* Chart Section */
+.chartSection {
+    grid-column: span 2;
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--card-border);
+}
+
+.chartContainer {
+    padding-top: 0.5rem;
+}
+
+.barChart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 180px;
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+}
+
+.barGroup {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.barStack {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 2px;
+    max-width: 50px;
+}
+
+.bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    min-height: 4px;
+    transition: height 0.3s ease;
+}
+
+.barPresent {
+    background: linear-gradient(180deg, var(--success-400), var(--success-500));
+}
+
+.barAbsent {
+    background: linear-gradient(180deg, var(--error-400), var(--error-500));
+}
+
+.barLabel {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    font-weight: 500;
+}
+
+.chartLegend {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-100);
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    color: var(--gray-600);
+}
+
+.legendDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+}
+
+.dotPresent {
+    background: var(--success-500);
+}
+
+.dotAbsent {
+    background: var(--error-500);
+}
+
+/* Today Section */
+.todaySection {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--card-border);
+}
+
+.todayGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.todayItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border-radius: var(--radius);
+}
+
+.todayItem div {
+    flex: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.todayValue {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.todayLabel {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.itemPresent {
+    background: var(--success-50);
+    color: var(--success-700);
+}
+
+.itemAbsent {
+    background: var(--error-50);
+    color: var(--error-700);
+}
+
+.itemLate {
+    background: var(--warning-50);
+    color: var(--warning-700);
+}
+
+/* Departments Section */
+.departmentsSection {
+    grid-column: span 2;
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--card-border);
+}
+
+.departmentsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.departmentItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.departmentInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.departmentName {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+.departmentCount {
+    font-size: 0.8125rem;
+    color: var(--gray-500);
+}
+
+.departmentBar {
+    height: 6px;
+    background: var(--gray-100);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.departmentProgress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-500), var(--primary-400));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+/* Activity Section */
+.activitySection {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--card-border);
+}
+
+.activityList {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.activityItem {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.activityItem:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.activityItem:first-child {
+    padding-top: 0;
+}
+
+.activityDot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary-500);
+    border-radius: 50%;
+    margin-top: 0.5rem;
+    flex-shrink: 0;
+}
+
+.activityContent {
+    flex: 1;
+    min-width: 0;
+}
+
+.activityText {
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    line-height: 1.5;
+}
+
+.activityText strong {
+    color: var(--gray-900);
+}
+
+.activityTime {
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    margin-top: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contentGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .alertsSection {
+        grid-column: span 2;
+    }
+
+    .chartSection {
+        grid-column: span 2;
+    }
+
+    .departmentsSection {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .contentGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .alertsSection,
+    .chartSection,
+    .todaySection,
+    .departmentsSection,
+    .activitySection {
+        grid-column: span 1;
+    }
+
+    .welcomeTitle {
+        font-size: 1.5rem;
+    }
+}
+
+/* Teacher Dashboard Styles */
+.teacherProfileCard {
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.profileHeader {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.profileAvatar {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.profileInfo h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+}
+
+.profileInfo p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 0.25rem 0;
+}
+
+.attendanceAction {
+    display: flex;
+    justify-content: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.registerAttendanceBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    color: var(--primary-700);
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius-lg);
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.registerAttendanceBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.registerAttendanceBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.attendanceRegistered {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1rem 2rem;
+    border-radius: var(--radius-lg);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #10b981;
+}
+
+.attendanceRegistered svg {
+    color: #10b981;
+}
+
+.iconRed {
+    background: linear-gradient(135deg, var(--error-100), var(--error-50));
+    color: var(--error-600);
+}
+
+/* Section Card */
+.sectionCard {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--card-border);
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: var(--gray-400);
+    gap: 0.75rem;
+}
+
+.emptyState p {
+    font-size: 0.9rem;
+}
+
+/* Evaluations List */
+.evaluationsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.evaluationItem {
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-100);
+}
+
+.evaluationHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.evaluationScore {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+}
+
+.evaluationScore small {
+    font-weight: 500;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.scoreHigh {
+    background: var(--success-100);
+    color: var(--success-700);
+}
+
+.scoreMedium {
+    background: var(--warning-100);
+    color: var(--warning-700);
+}
+
+.scoreLow {
+    background: var(--error-100);
+    color: var(--error-700);
+}
+
+.evaluationDate {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8rem;
+    color: var(--gray-500);
+}
+
+.evaluationComment {
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    line-height: 1.6;
+    margin: 0 0 0.5rem;
+}
+
+.evaluator {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+}
+
+/* Notes List */
+.notesList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.noteItem {
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-100);
+}
+
+.noteHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.noteType {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.typePositive {
+    background: var(--success-100);
+    color: var(--success-700);
+}
+
+.typeImprovement {
+    background: var(--primary-100);
+    color: var(--primary-700);
+}
+
+.typeWarning {
+    background: var(--warning-100);
+    color: var(--warning-700);
+}
+
+.typeInfo {
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+.noteDate {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8rem;
+    color: var(--gray-500);
+}
+
+.noteContent {
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    line-height: 1.6;
+    margin: 0 0 0.5rem;
+}
+
+.noteAuthor {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+}
+
+@media (max-width: 768px) {
+    .profileHeader {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .attendanceAction {
+        flex-direction: column;
+    }
+
+    .registerAttendanceBtn {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,3 @@
+module.exports=[27572,a=>{"use strict";var b=a.i(7997);function c({children:a}){return(0,b.jsxs)("html",{lang:"ar",dir:"rtl",suppressHydrationWarning:!0,children:[(0,b.jsxs)("head",{children:[(0,b.jsx)("meta",{name:"viewport",content:"width=device-width, initial-scale=1"}),(0,b.jsx)("link",{rel:"icon",href:"/favicon.ico"})]}),(0,b.jsx)("body",{suppressHydrationWarning:!0,children:a})]})}a.s(["default",()=>c,"metadata",0,{title:"منصة متابعة أداء المدرسين",description:"منصة متكاملة لإدارة ومتابعة أداء المدرسين في المؤسسات التعليمية"}])}];
+
+//# sourceMappingURL=src_app_layout_tsx_cc8184fa._.js.map
