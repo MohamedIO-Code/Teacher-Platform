@@ -150,8 +150,8 @@ export default function TeachersPage() {
             {/* Header */}
             <div className={styles.header}>
                 <div>
-                    <h1 className={styles.title}>إدارة المدرسون</h1>
-                    <p className={styles.subtitle}>عرض وإدارة بيانات المدرسون في المنظومة</p>
+                    <h1 className={styles.title}>إدارة المدرسين</h1>
+                    <p className={styles.subtitle}>عرض وإدارة بيانات المدرسين في المنظومة</p>
                 </div>
                 <button
                     className={styles.addButton}
@@ -499,3 +499,4 @@ function TeacherModal({ teacher, departments, subjects, onClose, onSave }: Teach
         </div>
     );
 }
+
